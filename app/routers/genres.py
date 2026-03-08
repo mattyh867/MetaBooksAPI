@@ -4,6 +4,8 @@ from typing import Optional
 
 from app.database import get_db
 from app.models.models import Genre, Book
+from app.auth import verify_api_key
+
 
 router = APIRouter()
 
@@ -53,7 +55,7 @@ def get_genre(genre_id: int, db: Session = Depends(get_db)):
 
 # ─── POST /genres ─────────────────────────────────────────────────────────────
 # Create a new genre
-@router.post("/", status_code=201)
+@router.post("/", status_code=201, dependencies=[Depends(verify_api_key)])
 def create_genre(payload: dict, db: Session = Depends(get_db)):
     # Check for duplicate
     existing = db.query(Genre).filter(Genre.name.ilike(payload.get("name", ""))).first()
@@ -70,7 +72,7 @@ def create_genre(payload: dict, db: Session = Depends(get_db)):
 
 # ─── PUT /genres/{id} ─────────────────────────────────────────────────────────
 # Update a genre
-@router.put("/{genre_id}")
+@router.put("/{genre_id}", dependencies=[Depends(verify_api_key)])
 def update_genre(genre_id: int, payload: dict, db: Session = Depends(get_db)):
     genre = db.query(Genre).filter(Genre.id == genre_id).first()
 
@@ -89,7 +91,7 @@ def update_genre(genre_id: int, payload: dict, db: Session = Depends(get_db)):
 
 # ─── DELETE /genres/{id} ──────────────────────────────────────────────────────
 # Delete a genre
-@router.delete("/{genre_id}")
+@router.delete("/{genre_id}", dependencies=[Depends(verify_api_key)])
 def delete_genre(genre_id: int, db: Session = Depends(get_db)):
     genre = db.query(Genre).filter(Genre.id == genre_id).first()
 

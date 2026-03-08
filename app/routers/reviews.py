@@ -4,6 +4,8 @@ from typing import Optional
 
 from app.database import get_db
 from app.models.models import Review, Book, User
+from app.auth import verify_api_key
+
 
 router = APIRouter()
 
@@ -53,7 +55,7 @@ def get_review(review_id: int, db: Session = Depends(get_db)):
 
 # ─── POST /reviews ────────────────────────────────────────────────────────────
 # Create a new review for a book
-@router.post("/", status_code=201)
+@router.post("/", status_code=201, dependencies=[Depends(verify_api_key)])
 def create_review(payload: dict, db: Session = Depends(get_db)):
     # Validate book exists
     book = db.query(Book).filter(Book.id == payload.get("book_id")).first()
@@ -83,7 +85,7 @@ def create_review(payload: dict, db: Session = Depends(get_db)):
 
 # ─── PUT /reviews/{id} ────────────────────────────────────────────────────────
 # Update a review
-@router.put("/{review_id}")
+@router.put("/{review_id}", dependencies=[Depends(verify_api_key)])
 def update_review(review_id: int, payload: dict, db: Session = Depends(get_db)):
     review = db.query(Review).filter(Review.id == review_id).first()
 
@@ -102,7 +104,7 @@ def update_review(review_id: int, payload: dict, db: Session = Depends(get_db)):
 
 # ─── DELETE /reviews/{id} ─────────────────────────────────────────────────────
 # Delete a review
-@router.delete("/{review_id}")
+@router.delete("/{review_id}", dependencies=[Depends(verify_api_key)])
 def delete_review(review_id: int, db: Session = Depends(get_db)):
     review = db.query(Review).filter(Review.id == review_id).first()
 

@@ -5,6 +5,8 @@ from typing import Optional
 
 from app.database import get_db
 from app.models.models import Book, Review
+from app.auth import verify_api_key
+
 
 router = APIRouter()
 
