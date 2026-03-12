@@ -3,7 +3,7 @@ from fastapi.openapi.utils import get_openapi
 
 from app.database import engine
 from app.models.models import Base
-from app.routers import books, reviews, authors, analytics
+from app.routers import books, reviews, authors, analytics, users
 
 # ─── Create tables on startup ─────────────────────────────────────────────────
 Base.metadata.create_all(bind=engine)
@@ -15,7 +15,7 @@ app = FastAPI(
 A RESTful API for book discovery, reviews, and analytics powered by the Goodreads dataset.
 
 ## Authentication
-Write endpoints (POST, PUT, DELETE) require an **X-API-Key** header.
+Write endpoints (POST, PUT, DELETE) require an API key header.
 Read endpoints (GET) are publicly accessible.
 
 ## Endpoints
@@ -32,6 +32,7 @@ app.include_router(books.router,     prefix="/books",     tags=["Books"])
 app.include_router(authors.router,   prefix="/authors",   tags=["Authors"])
 app.include_router(reviews.router,   prefix="/reviews",   tags=["Reviews"])
 app.include_router(analytics.router, prefix="/analytics", tags=["Analytics"])
+app.include_router(users.router,    prefix="/users",    tags=["Users"])
 
 
 # ─── Root ─────────────────────────────────────────────────────────────────────
