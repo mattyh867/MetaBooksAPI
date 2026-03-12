@@ -1,6 +1,6 @@
 # BookVault API
 
-A RESTful API for book discovery, reviews, and analytics, built for COMP3011 Coursework 1 (2025–2026).
+A RESTful API for book discovery, reviews, and analytics.
 
 BookVault integrates the Goodreads Books dataset (Soumik version, Kaggle) with a user-generated review system, providing endpoints for browsing books, managing reviews, and exploring analytics. The API uses a two-tier rating architecture: dataset ratings from the Goodreads community for large-scale analytics, and user review ratings computed live for personalised recommendations.
 
