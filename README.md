@@ -62,9 +62,29 @@ A PDF export of the API documentation is available at [`docs/api_documentation.p
 
 ## Authentication
 
-Write endpoints (POST, PUT, DELETE) and the user listing endpoint require an `X-API-Key` header. All other GET endpoints are publicly accessible.
+Write endpoints (POST, PUT, DELETE) and the user listing endpoint require an `X-API-Key` header. 
+All other GET endpoints are publicly accessible.
 
-To authenticate in Swagger UI, click the "Authorize" button and enter the API key.
+To authenticate, include the following header in your request:
+```
+X-API-Key: your-api-key-here
+```
+
+In Swagger UI, click the **Authorize** button at the top of the page and enter your API key.
+
+If no `.env` file is present, the API defaults to the development key `bookvault-dev-key-123`.
+
+## Error Codes
+
+| Status Code | Meaning | Example |
+|-------------|---------|---------|
+| 200 | Success | Successful GET, PUT, or DELETE request |
+| 201 | Created | Resource successfully created via POST |
+| 401 | Unauthorized | Missing `X-API-Key` header on a protected endpoint |
+| 403 | Forbidden | Invalid API key provided |
+| 404 | Not Found | Requested resource does not exist (e.g. book ID not in database) |
+| 409 | Conflict | Duplicate resource (e.g. username already taken, user already reviewed this book) |
+| 422 | Unprocessable Entity | Request body fails validation (e.g. missing required field, rating out of range) |
 
 ## Endpoints Overview
 
