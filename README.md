@@ -175,5 +175,5 @@ pytest tests/test_api.py -v
 
 ## API Documentation
 
-Full API documentation is available in [docs/api_documentation.pdf](docs/api_documentation.pdf).
+Full API documentation is available in [api_documentation.pdf](api_documentation.pdf).
 
