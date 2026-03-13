@@ -21,7 +21,6 @@ build/
 .idea/
 
 # Database
-*.db
 *.sqlite3
 
 # Logs
