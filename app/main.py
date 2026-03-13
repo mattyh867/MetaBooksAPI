@@ -19,7 +19,6 @@ Read endpoints (GET) are publicly accessible.
 ## Endpoints
 - **Books** — full CRUD + recommendations + top-rated
 - **Authors** — browse authors and view stats
-- **Genres** — manage and browse genres
 - **Reviews** — create and manage book reviews
 - **Users** — register and manage user accounts
 - **Analytics** — rating distribution, top publishers, publication trends

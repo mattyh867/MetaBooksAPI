@@ -22,7 +22,6 @@ class Book(Base):
     publisher = Column(String(200), nullable=True, index=True)
 
     reviews = relationship("Review", back_populates="book", cascade="all, delete-orphan")
-    liked_by = relationship("Like", back_populates="book", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Book id={self.id} title='{self.title}'>"
@@ -38,7 +37,6 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     reviews = relationship("Review", back_populates="user")
-    likes = relationship("Like", back_populates="user")
 
     def __repr__(self):
         return f"<User id={self.id} username='{self.username}'>"
@@ -61,18 +59,3 @@ class Review(Base):
 
     def __repr__(self):
         return f"<Review id={self.id} rating={self.rating} book_id={self.book_id}>"
-
-
-# ─── Like ─────────────────────────────────────────────────────────────────────
-class Like(Base):
-    __tablename__ = "like"
-
-    id = Column(Integer, primary_key=True, index=True)
-    book_id = Column(Integer, ForeignKey("book.id"), nullable=False, index=True)
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=False, index=True)
-
-    book = relationship("Book", back_populates="liked_by")
-    user = relationship("User", back_populates="likes")
-
-    def __repr__(self):
-        return f"<Like id={self.id} user_id={self.user_id} book_id={self.book_id}>"

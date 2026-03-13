@@ -59,30 +59,6 @@ class BookUpdate(BaseModel):
         }
 
 
-# ─── GENRE SCHEMAS ────────────────────────────────────────────────────────────
-
-class GenreCreate(BaseModel):
-    name: str = Field(..., description="Name of the genre (must be unique)", example="Science Fiction")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "name": "Science Fiction"
-            }
-        }
-
-
-class GenreUpdate(BaseModel):
-    name: str = Field(..., description="New name for the genre", example="Sci-Fi & Fantasy")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "name": "Sci-Fi & Fantasy"
-            }
-        }
-
-
 # ─── REVIEW SCHEMAS ───────────────────────────────────────────────────────────
 
 class ReviewCreate(BaseModel):
