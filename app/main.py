@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
+from contextlib import asynccontextmanager
 
-from app.database import engine
+from app.database import engine, SessionLocal
 from app.models.models import Base
 from app.routers import books, reviews, authors, users, analytics
+from data.import_data import run_import
 
 Base.metadata.create_all(bind=engine)
 
@@ -74,6 +76,19 @@ def custom_openapi():
 
     app.openapi_schema = schema
     return app.openapi_schema
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Create tables
+    Base.metadata.create_all(bind=engine)
+    # Seed if empty
+    db = SessionLocal()
+    try:
+        if db.query(Book).count() == 0:
+            run_import(db)
+    finally:
+        db.close()
+    yield
 
 
 app.openapi = custom_openapi
