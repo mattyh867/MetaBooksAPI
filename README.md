@@ -56,6 +56,7 @@ Interactive Swagger documentation is available at `/docs` when the API is runnin
 
 ```
 http://127.0.0.1:8000/docs
+https://bookvault-api-wth1.onrender.com/docs
 ```
 
 A PDF export of the API documentation is available at [`docs/api_documentation.pdf`](docs/api_documentation.pdf).
